@@ -34,7 +34,7 @@ class LoginPage extends  GetWidget<AuthPageModel>{
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(RegisterPage());
+                      Get.to(()=> RegisterPage());
                     },
                     child: CustomText(
                       text: 'Üye ol',

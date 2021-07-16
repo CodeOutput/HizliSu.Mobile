@@ -19,7 +19,7 @@ class UserAddress {
   bool isActive;
   String lastModificationTime;
   int lastModifierUserId;
-  String creationTime;
+  DateTime creationTime;
   int creatorUserId;
   int id;
 
@@ -65,7 +65,8 @@ class UserAddress {
     isActive = json['isActive'];
     lastModificationTime = json['lastModificationTime'];
     lastModifierUserId = json['lastModifierUserId'];
-    creationTime = json['creationTime'];
+    creationTime = json["creationTime"] == null ? null: DateTime.parse(json["creationTime"]);
+
     creatorUserId = json['creatorUserId'];
     id = json['id'];
   }
@@ -94,7 +95,7 @@ class UserAddress {
     data['isActive'] = this.isActive;
     data['lastModificationTime'] = this.lastModificationTime;
     data['lastModifierUserId'] = this.lastModifierUserId;
-    data['creationTime'] = this.creationTime;
+    data['creationTime'] = this.creationTime?.toIso8601String();
     data['creatorUserId'] = this.creatorUserId;
     data['id'] = this.id;
     return data;

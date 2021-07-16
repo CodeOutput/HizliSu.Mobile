@@ -26,13 +26,13 @@ class OrderPage extends StatelessWidget {
 
   List<Widget> appBarActions() {
     return [
-      IconButton(
-        icon: Icon(
-          Icons.exit_to_app,
-        ),
-        onPressed: () {
-        },
-      ),
+      // IconButton(
+      //   icon: Icon(
+      //     Icons.exit_to_app,
+      //   ),
+      //   onPressed: () {
+      //   },
+      // ),
     ];
   }
 
@@ -171,7 +171,7 @@ class OrderPage extends StatelessWidget {
                   ),
                   onTap: () {
                     orderPageCtrl.order.value = new Order();
-                    Get.to(OrderDetailPage(orderId: item.id,orderStatusId: item.orderStatus.id,), binding: Binding());
+                    Get.to(()=>OrderDetailPage(orderId: item.id,orderStatusId: item.orderStatus.id,), binding: Binding());
                   },
                 ),
               )

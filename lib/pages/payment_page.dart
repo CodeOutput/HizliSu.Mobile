@@ -1,16 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hizli_su/core/binding.dart';
+import 'package:hizli_su/core/page_model/address_page_model.dart';
 import 'package:hizli_su/core/page_model/home_page_model.dart';
 import 'package:hizli_su/core/page_model/payment_page_model.dart';
-import 'package:hizli_su/core/routes.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/models/address/user_address.dart';
 import 'package:hizli_su/models/cart/cart_model.dart';
-import 'package:hizli_su/pages/address/address_page.dart';
-import 'package:hizli_su/pages/home_page.dart';
+import 'package:hizli_su/pages/address/address_detail_page.dart';
 import 'package:hizli_su/pages/main_page.dart';
 import 'package:hizli_su/pages/widgets/cart_footer_widget.dart';
 import 'package:hizli_su/pages/widgets/custom_button.dart';
@@ -18,6 +16,7 @@ import 'package:hizli_su/pages/widgets/custom_text.dart';
 
 class PaymentPage extends StatelessWidget {
   final paymentPageCtrl = Get.find<PaymentPageModel>();
+  final addressPageCtrl = Get.find<AddressPageModel>();
   final homePageCtrl = Get.find<HomePageModel>();
   final formKey = GlobalKey<FormState>();
 
@@ -73,7 +72,7 @@ class PaymentPage extends StatelessWidget {
                                       paymentPageCtrl
                                           .order.value.userAddressId = value;
                                     },
-                                    items: paymentPageCtrl.userAddresses?.value
+                                    items: addressPageCtrl.userAddresses?.value
                                         .map(
                                           (UserAddress address) =>
                                               DropdownMenuItem(
@@ -93,7 +92,8 @@ class PaymentPage extends StatelessWidget {
                             child: CustomButton(
                               text: 'Yeni Adres Ekle',
                               onPressed: () {
-                                Get.to(() => AddressPage(), binding: Binding());
+                                addressPageCtrl.userAddress.value = new UserAddress();
+                                Get.to(() => AddressDetailPage(addressId: 0,), binding: Binding());
                               },
                             ))
                       ],

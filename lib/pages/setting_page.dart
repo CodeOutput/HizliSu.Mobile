@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hizli_su/core/binding.dart';
 import 'package:hizli_su/core/routes.dart';
 import 'package:hizli_su/helpers/const.dart';
+import 'package:hizli_su/pages/address/address_page.dart';
 import 'package:hizli_su/pages/auth/login_page.dart';
 
 class SettingPage extends StatelessWidget {
@@ -46,6 +47,9 @@ class SettingPage extends StatelessWidget {
                     Icons.arrow_forward_ios_rounded,
                     color: primaryColor,
                   ),
+                  onTap: () {
+                    Get.to(() => AddressPage(), binding: Binding());
+                  },
                 ),
                 Divider(
                   height: 1,
@@ -65,7 +69,7 @@ class SettingPage extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text(
-                    "Ayarlar",
+                    "Profil",
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                   ),
                   trailing: Icon(

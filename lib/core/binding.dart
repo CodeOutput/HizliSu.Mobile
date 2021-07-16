@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:hizli_su/core/page_model/address_page_model.dart';
 import 'package:hizli_su/core/page_model/cart_page_model.dart';
 import 'package:hizli_su/core/page_model/home_page_model.dart';
 import 'package:hizli_su/core/page_model/main_page_model.dart';
@@ -19,6 +20,7 @@ class Binding extends Bindings {
     Get.lazyPut(() => CartPageModel(), fenix: true);
     Get.lazyPut(() => PaymentPageModel(), fenix: true);
     Get.lazyPut(() => OrderPageModel(), fenix: true);
+    Get.lazyPut(() => AddressPageModel(), fenix: true);
   }
 
 }

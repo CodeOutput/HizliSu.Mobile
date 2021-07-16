@@ -44,12 +44,12 @@ class HomePage extends StatelessWidget {
                   //   height: 10,
                   // ),
                  // Text("${controller.loadingCategory.value}"),
-                  controller.loadingCategory.value
-                      ? Center(child: CircularProgressIndicator())
-                      : _listViewCategory(),
-                  SizedBox(
-                    height: 10,
-                  ),
+                 //  controller.loadingCategory.value
+                 //      ? Center(child: CircularProgressIndicator())
+                 //      : _listViewCategory(),
+                 //  SizedBox(
+                 //    height: 10,
+                 //  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

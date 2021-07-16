@@ -17,31 +17,9 @@ import 'package:hizli_su/models/order/save_order_result.dart';
 
 class PaymentService {
 
-  Future<UserAddressResult> getAuthUserAddressList() async {
-    Response resp = await MainService().get('/services/app/UserAddress/GetAuthUserAddressList');
-    return UserAddressResult.fromJson(resp.data);
-  }
-
-  Future<SaveUserAddressResult> saveUserAddress(UserAddress address) async {
-    Response resp = await MainService().post('/services/app/UserAddress/SaveUserAddress', data: address.toJson());
-    return SaveUserAddressResult.fromJson(resp.data);
-  }
-
   Future<SaveOrderResult> saveOrder(Order order) async {
     Response resp = await MainService().post('/services/app/Order/SaveOrder', data: order.toJson());
     return SaveOrderResult.fromJson(resp.data);
   }
 
-  Future<CityResult> getCityList() async {
-    Response resp = await MainService().get('/services/app/City/GetCityList?isActive=true');
-    return CityResult.fromJson(resp.data);
-  }
-  Future<DistrictResult> getDistrictList(int cityId) async {
-    Response resp = await MainService().get('/services/app/District/GetDistrictList?cityId=$cityId&isActive=true');
-    return DistrictResult.fromJson(resp.data);
-  }
-  Future<NeighborhoodResult> getNeighborhoodList(int districtId) async {
-    Response resp = await MainService().get('/services/app/Neighborhood/GetNeighborhoodList?districtId=$districtId&isActive=true');
-    return NeighborhoodResult.fromJson(resp.data);
-  }
 }

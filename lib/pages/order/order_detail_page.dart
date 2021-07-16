@@ -231,7 +231,7 @@ class OrderDetailPage extends StatelessWidget {
                           body: Column(
                             children: [
                               Text(
-                                  'Siparişini iptal edilecektir. Devam etmek istyor musunuz ?'),
+                                  'Siparişini iptal edilecektir. Devam etmek istiyor musunuz ?'),
                             ],
                           ),
                           okButtonText: 'EVET',

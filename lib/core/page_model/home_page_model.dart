@@ -52,7 +52,7 @@ class HomePageModel extends GetxController {
   }
 
   HomePageModel() {
-    getCategory();
+   // getCategory();
     getProducts();
     getCartAllList();
   }

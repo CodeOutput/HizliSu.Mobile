@@ -1,412 +1,190 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hizli_su/core/page_model/payment_page_model.dart';
+import 'package:hizli_su/core/binding.dart';
+import 'package:hizli_su/core/page_model/address_page_model.dart';
 import 'package:hizli_su/helpers/const.dart';
-import 'package:hizli_su/mixins/validation_mixins.dart';
-import 'package:hizli_su/models/address/city.dart';
-import 'package:hizli_su/models/address/district.dart';
-import 'package:hizli_su/models/address/neighborhood.dart';
-import 'package:hizli_su/pages/widgets/cart_footer_widget.dart';
-import 'package:hizli_su/pages/widgets/custom_button.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:hizli_su/helpers/custom_alert_message.dart';
+import 'package:hizli_su/models/address/user_address.dart';
+import 'package:hizli_su/pages/address/address_detail_page.dart';
+import 'package:intl/intl.dart';
 
 class AddressPage extends StatelessWidget {
-  final paymentPageCtrl = Get.find<PaymentPageModel>();
-  var maskFormatter = new MaskTextInputFormatter(
-      mask: '### ### ## ##', filter: {"#": RegExp(r'[0-9]')});
-  final formKey = GlobalKey<FormState>();
+  final addressPageCtrl = Get.find<AddressPageModel>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Adres Detayı'),
-      ),
-      body: body(context),
+    return   Scaffold(
+        appBar: AppBar(
+          title: Text('Adreslerim'),
+          actions: appBarActions(),
+        ),
+
+        body: body(context),
     );
+  }
+
+  List<Widget> appBarActions() {
+    return [
+      // IconButton(
+      //   icon: Icon(
+      //     Icons.exit_to_app,
+      //   ),
+      //   onPressed: () {
+      //   },
+      // ),
+    ];
   }
 
   Widget body(BuildContext context) {
     return Obx(() => GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        child: RefreshIndicator(
+          onRefresh: _onRefresh,
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              children: addressPageCtrl.userAddresses.value
+                  .map(
+                    (item) => GestureDetector(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: 10, right: 10, top: 10, bottom: 5),
+                    decoration: new BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                        )
+                      ],
+                    ),
+                    child: Column(
                       children: [
-                        Expanded(
-                          flex: 1,
+                        Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          color: Colors.white,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 0, bottom: 0),
+                            padding:
+                            const EdgeInsets.only(top: 0.0),
                             child: Column(
                               children: [
-                                TextFormField(
-                                  controller: null,
-                                  initialValue:
-                                      paymentPageCtrl.userAddress.value.title,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(
-                                        top: 15.0, left: 5, bottom: 8),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[300])),
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepOrange)),
-                                    disabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: primaryColor)),
-                                    labelText: 'Adres Başlığı*',
-                                    hintText: 'Ev, İş, Diğer ...',
+                                ListTile(
+                                  title: Text(
+                                    "${item.title}",
+                                    style: TextStyle(
+                                        fontWeight:
+                                        FontWeight.bold),
                                   ),
-                                  validator: (String value) {
-                                    return ValidationMixins()
-                                        .validatorTitle(value);
-                                  },
-                                  onSaved: (String value) {
-                                    paymentPageCtrl.userAddress.value.title =
-                                        value;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                FractionallySizedBox(
-                                  widthFactor: 1,
-                                  child: DropdownButtonFormField(
-                                    isExpanded: true,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(right: 5),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[500])),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.deepOrange)),
-                                      hintText: 'Şehir*',
-                                      labelText: 'Şehir*',
-                                    ),
-                                    value: paymentPageCtrl
-                                        .userAddress.value.cityId,
-                                    onChanged: (int value) {
-                                      paymentPageCtrl.userAddress.value.cityId =
-                                          value;
-                                      paymentPageCtrl
-                                          .userAddress.value.districtId = null;
-                                      paymentPageCtrl.userAddress.value
-                                          .neighborhoodId = null;
-                                      paymentPageCtrl.userAddress.value.cityId =
-                                          value;
-                                      paymentPageCtrl.neighborhoods.value =
-                                          new List<Neighborhood>.empty(
-                                              growable: true);
-                                      paymentPageCtrl.getDistrictList(value);
-                                    },
-                                    validator: (int value) {
-                                      return ValidationMixins()
-                                          .validatorCity(value);
-                                    },
-                                    onSaved: (int value) {
-                                      paymentPageCtrl
-                                          .userAddress.value.cityId = value;
-                                    },
-                                    items: paymentPageCtrl.cities?.value
-                                        .map(
-                                          (City row) => DropdownMenuItem(
-                                            child: Text("${row.name}"),
-                                            value: row.id,
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                FractionallySizedBox(
-                                  widthFactor: 1,
-                                  child: DropdownButtonFormField(
-                                    isExpanded: true,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(right: 5),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[500])),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.deepOrange)),
-                                      hintText: 'İlçe*',
-                                      labelText: 'İlçe*',
-                                    ),
-                                    value: paymentPageCtrl
-                                        .userAddress.value.districtId,
-                                    onChanged: (int value) {
-                                      paymentPageCtrl
-                                          .userAddress.value.districtId = value;
-                                      paymentPageCtrl
-                                          .getNeighborhoodList(value);
-                                    },
-                                    validator: (int value) {
-                                      return ValidationMixins()
-                                          .validatorDistrict(value);
-                                    },
-                                    onSaved: (int value) {
-                                      paymentPageCtrl
-                                          .userAddress.value.districtId = value;
-                                    },
-                                    items: paymentPageCtrl.districts?.value
-                                        .map(
-                                          (District row) => DropdownMenuItem(
-                                            child: Text("${row.name}"),
-                                            value: row.id,
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                FractionallySizedBox(
-                                  widthFactor: 1,
-                                  child: DropdownButtonFormField(
-                                    isExpanded: true,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.only(right: 5),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[500])),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.deepOrange)),
-                                      hintText: 'Mahalle*',
-                                      labelText: 'Mahalle*',
-                                    ),
-                                    value: paymentPageCtrl
-                                        .userAddress.value.neighborhoodId,
-                                    onChanged: (int value) {
-                                      paymentPageCtrl.userAddress.value
-                                          .neighborhoodId = value;
-                                    },
-                                    validator: (int value) {
-                                      return ValidationMixins()
-                                          .validatorNeighborhood(value);
-                                    },
-                                    onSaved: (int value) {
-                                      paymentPageCtrl
-                                          .userAddress.value.neighborhoodId = value;
-                                    },
-                                    items: paymentPageCtrl.neighborhoods?.value
-                                        .map(
-                                          (Neighborhood row) =>
-                                              DropdownMenuItem(
-                                            child: Text("${row.name}"),
-                                            value: row.id,
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                TextFormField(
-                                  controller: null,
-                                  initialValue:
-                                      paymentPageCtrl.userAddress.value.streetName,
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(
-                                        top: 15.0, left: 5, bottom: 8),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[300])),
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepOrange)),
-                                    disabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: primaryColor)),
-                                    labelText: 'Cadde / Sokak*',
-                                    hintText: 'Cadde / Sokak ...',
-                                  ),
-                                  validator: (String value) {
-                                    return ValidationMixins()
-                                        .validatorStreet(value);
-                                  },
-                                  onSaved: (String value) {
-                                    paymentPageCtrl
-                                        .userAddress.value.streetName = value;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: null,
-                                        keyboardType: TextInputType.number,
-                                        initialValue: paymentPageCtrl
-                                            .userAddress.value.no,
-                                        decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.only(
-                                              top: 15.0, left: 5, bottom: 8),
-                                          enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey[300])),
-                                          focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.deepOrange)),
-                                          disabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: primaryColor)),
-                                          labelText: 'No*',
-                                          hintText: 'No',
+                                  trailing: IconButton(
+                                    onPressed: () {
+                                      CustomAlertMessage.showAlertMessageWithContent(
+                                        context,
+                                        title: 'UYARI',
+                                        body: Column(
+                                          children: [
+                                            Text(
+                                                'Adres silinecektir. Devam etmek istiyor musunuz ?'),
+                                          ],
                                         ),
-                                        validator: (String value) {
-                                          return ValidationMixins()
-                                              .validatorNo(value);
+                                        okButtonText: 'EVET',
+                                        okButtonPressed: () async {
+                                          Get.back();
+                                          await addressPageCtrl.deleteAddress(item.id);
+                                          Get.snackbar("Adres durumu",
+                                              "Adres başarıyla silinmiştir!", snackPosition: SnackPosition.BOTTOM);
+                                         await addressPageCtrl.getAuthUserAddressList();
                                         },
-                                        onSaved: (String value) {
-                                          paymentPageCtrl.userAddress.value.no =
-                                              value;
+                                        cancelButtonText: 'HAYIR',
+                                        cancelButtonPressed: () {
+                                          Get.back();
                                         },
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0),
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          controller: null,
-                                          initialValue: paymentPageCtrl
-                                              .userAddress.value.doorNumber,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.only(
-                                                top: 15.0, left: 0, bottom: 8),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300])),
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.deepOrange)),
-                                            disabledBorder:
-                                                UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: primaryColor)),
-                                            labelText: 'Kapı*',
-                                            hintText: 'Kapı',
-                                          ),
-                                          validator: (String value) {
-                                            return ValidationMixins()
-                                                .validatorDoorNumber(value);
-                                          },
-                                          onSaved: (String value) {
-                                            paymentPageCtrl.userAddress.value
-                                                .doorNumber = value;
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )
+                                      );
+                                    },
+                                    icon: Icon(Icons.delete_forever),
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                                Divider(height: 1,thickness: 3, color: primaryColor,),
+                                ListTile(
+                                  contentPadding:
+                                  EdgeInsets.symmetric(
+                                      vertical: 0.0,
+                                      horizontal: 16.0),
+                                  dense: true,
+                                  title: Text("Eklenme Tarihi"),
+                                  trailing:
+                                  Text("${DateFormat("dd.MM.yyyy HH:mm").format(item.creationTime)}"),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.grey,
+                                ),
+                                ListTile(
+                                  contentPadding:
+                                  EdgeInsets.symmetric(
+                                      vertical: 0.0,
+                                      horizontal: 16.0),
+                                  dense: true,
+                                  title: Text("Şehir/İlçe/Mah"),
+                                  trailing: Text(
+                                      "${item.city.name}/${item.district.name}/${item.neighborhood.name}"),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.blueGrey,
+                                ),
+                                ListTile(
+                                  contentPadding:
+                                  EdgeInsets.symmetric(
+                                      vertical: 0.0,
+                                      horizontal: 16.0),
+                                  dense: true,
+                                  title: Text("Sokak/No/Kapı"),
+                                  trailing: Text(
+                                      "${item.streetName}/${item.no}/${item.doorNumber}"),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.blueGrey,
+                                ),
+                                ListTile(
+                                  contentPadding:
+                                  EdgeInsets.symmetric(
+                                      vertical: 0.0,
+                                      horizontal: 16.0),
+                                  dense: true,
+                                  title: Text("Teslimat Telefonu"),
+                                  trailing: Text(
+                                      "${item.phoneNumber}"),
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      maxLines: 3,
-                      maxLength: 127,
-                      initialValue: paymentPageCtrl.userAddress.value.addressDescription,
-                      decoration: InputDecoration(
-                          labelText: 'Adres Tarifi*',
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(new Radius.circular(0.0)))),
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14.0,
-                      ),
-                      validator: (String value) {
-                        return ValidationMixins().validatorAddressDescription(value);
-                      },
-                      onSaved: (String value) {
-                        paymentPageCtrl.userAddress.value.addressDescription = value;
-                      },
-                      //controller: host,
-                    ),
-                    SizedBox(
-                      height: 1,
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: null,
-                      inputFormatters: [maskFormatter],
-                      initialValue:
-                          paymentPageCtrl.userAddress.value.phoneNumber,
-                      decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.only(top: 15.0, left: 0, bottom: 8),
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[300])),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.deepOrange)),
-                        disabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: primaryColor)),
-                        labelText: 'Teslimat Telefonu*',
-                        hintText: 'Teslimat Telefonu',
-                      ),
-                      validator: (String value) {
-                        return ValidationMixins().validatorPhoneNumber(value);
-                      },
-                      onSaved: (String value) {
-                        paymentPageCtrl.userAddress.value.phoneNumber = value;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(
-                      text: 'Kaydet',
-                      onPressed: () async {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
-                          paymentPageCtrl.userAddress.value.isActive = true;
-                          var userAddress = paymentPageCtrl.userAddress.value;
-
-                          var saveAddress =  await paymentPageCtrl.saveUserAddress(userAddress);
-                          if(paymentPageCtrl.userAddress.value.userId>0){
-                            Get.snackbar('Form Bilgileri', 'Kayıt başarılı', snackPosition:SnackPosition.BOTTOM );
-                            await paymentPageCtrl.getAuthUserAddressList();
-                          }
-
-                          return;
-                        }else {
-                          Get.snackbar('Form Bilgileri', 'Zorunlu alanları doldurunuz', snackPosition:SnackPosition.BOTTOM );
-                        }
-                      },
-                    )
-                  ],
+                  ),
+                  onTap: () async {
+                    addressPageCtrl.userAddress.value = new UserAddress();
+                    await addressPageCtrl.getAddressDetail(item.id);
+                    Get.to(()=>AddressDetailPage(addressId:item.id), binding: Binding());
+                  },
                 ),
-              ),
+              )
+                  .toList(),
             ),
           ),
-        ));
+        ),
+      ),
+    ));
+  }
+  Future<void> _onRefresh() async {
+    addressPageCtrl.getAuthUserAddressList();
   }
 }
+
