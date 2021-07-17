@@ -12,7 +12,6 @@ import 'package:hizli_su/pages/setting/profile_page.dart';
 class SettingPage extends StatelessWidget {
   final authPageCtrl = Get.find<AuthPageModel>();
   final MainPageModel mainPageCtrl = Get.find<MainPageModel>();
-
   final box = GetStorage();
 
   @override
@@ -37,8 +36,9 @@ class SettingPage extends StatelessWidget {
     ];
   }
 
-  Widget body(BuildContext context) {
-    return  SafeArea(
+  body(BuildContext context) {
+    authPageCtrl.getAuthUserInfo();
+    return  Obx(() =>SafeArea(
           child: Column(
             children: [
               Card(
@@ -46,7 +46,7 @@ class SettingPage extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text(
-                        "Profil",
+                        "Profil / ${authPageCtrl.user.value.fullName}",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 20),
                       ),
@@ -114,6 +114,6 @@ class SettingPage extends StatelessWidget {
               ),
             ],
           ),
-        );
+        ));
   }
 }

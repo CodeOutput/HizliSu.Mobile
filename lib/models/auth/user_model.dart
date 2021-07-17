@@ -3,6 +3,7 @@ class User {
   String name;
   String surname;
   String emailAddress;
+  String password;
   String phoneNumber;
   bool isActive;
   String fullName;
@@ -15,6 +16,7 @@ class User {
       {this.userName,
         this.name,
         this.surname,
+        this.password,
         this.emailAddress,
         this.phoneNumber,
         this.isActive,
@@ -28,6 +30,7 @@ class User {
     userName = json['userName'];
     name = json['name'];
     surname = json['surname'];
+    password = json['password'];
     emailAddress = json['emailAddress'];
     phoneNumber = json['phoneNumber'];
     isActive = json['isActive'];
@@ -43,6 +46,7 @@ class User {
     data['userName'] = this.userName;
     data['name'] = this.name;
     data['surname'] = this.surname;
+    data['password'] = this.password;
     data['emailAddress'] = this.emailAddress;
     data['phoneNumber'] = this.phoneNumber;
     data['isActive'] = this.isActive;

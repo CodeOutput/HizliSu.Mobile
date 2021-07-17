@@ -82,6 +82,12 @@ class ValidationMixins {
     }
     return null;
   }
+  String validatorPassword(String value) {
+    if (value == null || value == '') {
+      return 'Şifrenizi giriniz!';
+    }
+    return null;
+  }
 
   String validatorPhone(String value) {
     if (value == null || value == '') {

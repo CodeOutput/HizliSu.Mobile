@@ -190,6 +190,7 @@ class ProfilePage extends StatelessWidget {
                             Get.snackbar(
                                 'Form Bilgileri', 'Kayıt başarıyla güncellendi',
                                 snackPosition: SnackPosition.BOTTOM);
+                            await authPageCtrl.getAuthUserInfo();
                           }
                           return;
                         } else {

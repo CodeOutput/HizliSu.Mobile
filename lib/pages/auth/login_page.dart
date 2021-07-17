@@ -32,16 +32,7 @@ class LoginPage extends  GetWidget<AuthPageModel>{
                     text: 'Hoş Geldiniz',
                     fontSize: 30,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(()=> RegisterPage());
-                    },
-                    child: CustomText(
-                      text: 'Üye ol',
-                      color: primaryColor,
-                      fontSize: 18,
-                    ),
-                  ),
+
                 ],
               ),
               SizedBox(
@@ -53,7 +44,7 @@ class LoginPage extends  GetWidget<AuthPageModel>{
                 color: Colors.grey,
               ),
               SizedBox(
-                height: 30,
+                height: 120,
               ),
               CustomTextFormField(
                 text: 'E-Posta',
@@ -109,9 +100,28 @@ class LoginPage extends  GetWidget<AuthPageModel>{
                   }),
 
               SizedBox(
-                height: 20,
+                height: 30,
               ),
-
+              CustomText(
+                text: 'Henüz üye değil misin?',
+                color: Colors.black,
+                fontSize: 16,
+                alignment: Alignment.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.to(()=> RegisterPage());
+                },
+                child: CustomText(
+                  text: 'Üye ol',
+                  color: primaryColor,
+                  fontSize: 26,
+                  alignment: Alignment.center,
+                ),
+              ),
             ],
           ),
         ),
