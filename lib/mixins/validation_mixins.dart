@@ -82,6 +82,12 @@ class ValidationMixins {
     }
     return null;
   }
+  String validatorUserName(String value) {
+    if (value == null || value == '') {
+      return 'Kullanıcı adınızı giriniz!';
+    }
+    return null;
+  }
   String validatorPassword(String value) {
     if (value == null || value == '') {
       return 'Şifrenizi giriniz!';

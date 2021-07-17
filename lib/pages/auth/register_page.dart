@@ -137,7 +137,34 @@ class RegisterPage extends GetWidget<AuthPageModel> {
                             ),
                             SizedBox(
                               height: 20,
-                            ),                            SizedBox(
+                            ),
+                            TextFormField(
+                              controller: null,
+                              initialValue:
+                                  authPageCtrl.user.value.userName,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: 15.0, left: 5, bottom: 8),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey[300])),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: primaryColor)),
+                                disabledBorder: UnderlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: primaryColor)),
+                                labelText: 'Kullanıcı Adı',
+                                hintText: 'Kullanıcı adınız...',
+                              ),
+                              validator: (String value) {
+                                return ValidationMixins().validatorUserName(value);
+                              },
+                              onSaved: (String value) {
+                                authPageCtrl.user.value.userName = value;
+                              },
+                            ),
+                          SizedBox(
                               height: 20,
                             ),
                             TextFormField(
@@ -221,6 +248,9 @@ class RegisterPage extends GetWidget<AuthPageModel> {
                         Get.snackbar('Kayıt Durumu', 'Başarıyla üye oldunuz!\nOturum açabilirsiniz',
                             backgroundColor: primaryColor,
                             snackPosition: SnackPosition.BOTTOM);
+
+                       await authPageCtrl.signIn(authPageCtrl.user.value.emailAddress, authPageCtrl.user.value.password);
+
                         return;
                       }
                       Get.snackbar(

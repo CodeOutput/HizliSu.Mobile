@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hizli_su/core/binding.dart';
-import 'package:hizli_su/core/page_model/auth_page_model.dart';
 import 'package:hizli_su/core/page_model/main_page_model.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/pages/address/address_page.dart';
@@ -10,7 +9,7 @@ import 'package:hizli_su/pages/auth/login_page.dart';
 import 'package:hizli_su/pages/setting/profile_page.dart';
 
 class SettingPage extends StatelessWidget {
-  final authPageCtrl = Get.find<AuthPageModel>();
+  // final authPageCtrl = Get.find<AuthPageModel>();
   final MainPageModel mainPageCtrl = Get.find<MainPageModel>();
   final box = GetStorage();
 
@@ -37,8 +36,7 @@ class SettingPage extends StatelessWidget {
   }
 
   body(BuildContext context) {
-    authPageCtrl.getAuthUserInfo();
-    return  Obx(() =>SafeArea(
+    return  SafeArea(
           child: Column(
             children: [
               Card(
@@ -46,7 +44,7 @@ class SettingPage extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text(
-                        "Profil / ${authPageCtrl.user.value.fullName}",
+                        "Profil",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 20),
                       ),
@@ -114,6 +112,6 @@ class SettingPage extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        );
   }
 }
