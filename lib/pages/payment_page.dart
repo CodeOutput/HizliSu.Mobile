@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hizli_su/core/binding.dart';
 import 'package:hizli_su/core/page_model/address_page_model.dart';
 import 'package:hizli_su/core/page_model/home_page_model.dart';
+import 'package:hizli_su/core/page_model/order_page_model.dart';
 import 'package:hizli_su/core/page_model/payment_page_model.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/models/address/user_address.dart';
@@ -17,6 +18,7 @@ import 'package:hizli_su/pages/widgets/custom_text.dart';
 class PaymentPage extends StatelessWidget {
   final paymentPageCtrl = Get.find<PaymentPageModel>();
   final addressPageCtrl = Get.find<AddressPageModel>();
+  final orderPageCtrl = Get.find<OrderPageModel>();
   final homePageCtrl = Get.find<HomePageModel>();
   final formKey = GlobalKey<FormState>();
 
@@ -181,6 +183,7 @@ class PaymentPage extends StatelessWidget {
       Get.snackbar('Sipariş Durumu', 'Siparişiniz başarıyla alınmıştır',
           backgroundColor: Colors.green, snackPosition: SnackPosition.BOTTOM);
      // Get.reset();
+      await orderPageCtrl.getOrderList();
       Timer(Duration(seconds: 3),
           () => Get.offAll(() => MainPage(), binding: Binding()));
     }

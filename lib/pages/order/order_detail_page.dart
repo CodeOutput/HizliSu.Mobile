@@ -40,175 +40,180 @@ class OrderDetailPage extends StatelessWidget {
   }
 
   Widget body(BuildContext context) {
-    return Obx(() => RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: orderPageCtrl?.order?.value?.orderStatus != null? SafeArea(
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                    bottom: BorderSide(width: 2.0, color: primaryColor),
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: ListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.only(
-                          left: 0.0, right: 0.0, top: 0, bottom: 0),
-                      title: Text(orderPageCtrl.order.value.orderStatus.name,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+    return Obx(() => SingleChildScrollView(
+      physics: ScrollPhysics(),
+      child: RefreshIndicator(
+            onRefresh: _onRefresh,
+            child: orderPageCtrl?.order?.value?.orderStatus != null? SafeArea(
+              child: ListView(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(width: 2.0, color: primaryColor),
+                    )),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: ListTile(
+                        dense: true,
+                        contentPadding: EdgeInsets.only(
+                            left: 0.0, right: 0.0, top: 0, bottom: 0),
+                        title: Text(orderPageCtrl.order.value.orderStatus.name,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
                     ),
                   ),
-                ),
-                Column(
-                  children: [
-                    ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 16.0),
+                  Column(
+                    children: [
+                      ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 0.0, horizontal: 16.0),
+                          dense: true,
+                          title: Text("Toplam Sipariş Fiyatı"),
+                          trailing: PriceTextWidget(
+                            price: orderPageCtrl.order.value.totalPrice,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                              color: primaryColor,
+                            ),
+                          )),
+                      Divider(
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
                         dense: true,
-                        title: Text("Toplam Sipariş Fiyatı"),
-                        trailing: PriceTextWidget(
-                          price: orderPageCtrl.order.value.totalPrice,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
-                            color: primaryColor,
+                        title: Text("Sipariş Tarihi"),
+                        trailing: Text(
+                            "${DateFormat("dd.MM.yyyy HH:mm").format(orderPageCtrl.order.value.creationTime)}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Adres Başlık"),
+                        trailing: Text(
+                            "${orderPageCtrl.order.value.userAddress.title}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.grey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Sipariş Numarası"),
+                        trailing: Text("${orderPageCtrl.order.value.id}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.blueGrey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Şehir/İlçe/Mah"),
+                        trailing: Text(
+                            "${orderPageCtrl.order.value.userAddress.city.name}/${orderPageCtrl.order.value.userAddress.district.name}/${orderPageCtrl.order.value.userAddress.neighborhood.name}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.blueGrey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Sokak/No/Kapı"),
+                        trailing: Text(
+                            "${orderPageCtrl.order.value.userAddress.streetName}/${orderPageCtrl.order.value.userAddress.no}/${orderPageCtrl.order.value.userAddress.doorNumber}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.blueGrey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Teslimat Telefonu"),
+                        trailing: Text(
+                            "${orderPageCtrl.order.value.userAddress.phoneNumber}"),
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Colors.blueGrey,
+                      ),
+                      ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                        dense: true,
+                        title: Text("Sipariş Notu"),
+                        subtitle: Text("${orderPageCtrl.order.value.orderNote}"),
+                      ),
+                    ],
+                  ),
+                  Divider(
+                    height: 1,
+                    color: Colors.blueGrey,
+                  ),
+                  SizedBox(height: 10,),
+
+                  // ListTileMoreCustomizable(
+                  //   contentPadding:
+                  //   EdgeInsets.only(top: 2, right: 24, left: 29),
+                  //   horizontalTitleGap: -5.0,
+                  //   minVerticalPadding: 0.0,
+                  //   trailing: orderPageCtrl.orderItems.length > 0
+                  //       ? Text(
+                  //     orderPageCtrl.orderItems.length.toString() +
+                  //         ' Ürün',
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         color: primaryColor),
+                  //   )
+                  //       : Container(),
+                  //   title: Text(
+                  //     'Siparişteki Ürünler',
+                  //     style: TextStyle(
+                  //         fontSize: 15, fontWeight: FontWeight.w600),
+                  //   ),
+                  // ),
+
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: orderPageCtrl.orderItems.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 24, right: 24),
+                          child: OrderItemWidget(
+                            item: orderPageCtrl.orderItems[index],
+                            showDivider:
+                                (index + 1) < orderPageCtrl.orderItems.length
+                                    ? true
+                                    : false,
                           ),
-                        )),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Sipariş Tarihi"),
-                      trailing: Text(
-                          "${DateFormat("dd.MM.yyyy HH:mm").format(orderPageCtrl.order.value.creationTime)}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Adres Başlık"),
-                      trailing: Text(
-                          "${orderPageCtrl.order.value.userAddress.title}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Sipariş Numarası"),
-                      trailing: Text("${orderPageCtrl.order.value.id}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.blueGrey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Şehir/İlçe/Mah"),
-                      trailing: Text(
-                          "${orderPageCtrl.order.value.userAddress.city.name}/${orderPageCtrl.order.value.userAddress.district.name}/${orderPageCtrl.order.value.userAddress.neighborhood.name}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.blueGrey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Sokak/No/Kapı"),
-                      trailing: Text(
-                          "${orderPageCtrl.order.value.userAddress.streetName}/${orderPageCtrl.order.value.userAddress.no}/${orderPageCtrl.order.value.userAddress.doorNumber}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.blueGrey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Teslimat Telefonu"),
-                      trailing: Text(
-                          "${orderPageCtrl.order.value.userAddress.phoneNumber}"),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.blueGrey,
-                    ),
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                      dense: true,
-                      title: Text("Sipariş Notu"),
-                      subtitle: Text("${orderPageCtrl.order.value.orderNote}"),
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: 1,
-                  color: Colors.blueGrey,
-                ),
-                SizedBox(height: 10,),
-
-                // ListTileMoreCustomizable(
-                //   contentPadding:
-                //   EdgeInsets.only(top: 2, right: 24, left: 29),
-                //   horizontalTitleGap: -5.0,
-                //   minVerticalPadding: 0.0,
-                //   trailing: orderPageCtrl.orderItems.length > 0
-                //       ? Text(
-                //     orderPageCtrl.orderItems.length.toString() +
-                //         ' Ürün',
-                //     style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //         color: primaryColor),
-                //   )
-                //       : Container(),
-                //   title: Text(
-                //     'Siparişteki Ürünler',
-                //     style: TextStyle(
-                //         fontSize: 15, fontWeight: FontWeight.w600),
-                //   ),
-                // ),
-
-                ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: orderPageCtrl.orderItems.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24),
-                        child: OrderItemWidget(
-                          item: orderPageCtrl.orderItems[index],
-                          showDivider:
-                              (index + 1) < orderPageCtrl.orderItems.length
-                                  ? true
-                                  : false,
-                        ),
-                      );
-                    }),
-              ],
-            ),
-          ):Center(child: Text("Yükleniyor...")),
-        ));
+                        );
+                      }),
+                ],
+              ),
+            ):Center(child: Text("Yükleniyor...")),
+          ),
+    ));
   }
 
    getBottomNavigationBar(BuildContext context)  {
