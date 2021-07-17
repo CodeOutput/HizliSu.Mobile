@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:hizli_su/models/catalog/facility_attribute.dart';
 
 import 'manufacturer_model.dart';
 
@@ -8,7 +8,7 @@ class Facility {
   String name;
   String description;
   String address;
-  List<Null> facilityAttributes;
+  List<FacilityAttribute> facilityAttributes;
   String lastModificationTime;
   int lastModifierUserId;
   String creationTime;
@@ -36,12 +36,12 @@ class Facility {
     name = json['name'];
     description = json['description'];
     address = json['address'];
-    // if (json['facilityAttributes'] != null) {
-    //   facilityAttributes = new List<Null>();
-    //   json['facilityAttributes'].forEach((v) {
-    //     facilityAttributes.add(new Null.fromJson(v));
-    //   });
-    // }
+    if (json['facilityAttributes'] != null) {
+      facilityAttributes = new List<FacilityAttribute>.empty(growable: true);
+      json['facilityAttributes'].forEach((v) {
+        facilityAttributes.add(new FacilityAttribute.fromJson(v));
+      });
+    }
     lastModificationTime = json['lastModificationTime'];
     lastModifierUserId = json['lastModifierUserId'];
     creationTime = json['creationTime'];
@@ -58,10 +58,10 @@ class Facility {
     data['name'] = this.name;
     data['description'] = this.description;
     data['address'] = this.address;
-    // if (this.facilityAttributes != null) {
-    //   data['facilityAttributes'] =
-    //       this.facilityAttributes.map((v) => v.toJson()).toList();
-    // }
+    if (this.facilityAttributes != null) {
+      data['facilityAttributes'] =
+          this.facilityAttributes.map((v) => v.toJson()).toList();
+    }
 
     data['lastModificationTime'] = this.lastModificationTime;
     data['lastModifierUserId'] = this.lastModifierUserId;
