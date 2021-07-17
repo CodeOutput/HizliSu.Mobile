@@ -3,6 +3,7 @@ class User {
   String name;
   String surname;
   String emailAddress;
+  String phoneNumber;
   bool isActive;
   String fullName;
   String lastLoginTime;
@@ -15,6 +16,7 @@ class User {
         this.name,
         this.surname,
         this.emailAddress,
+        this.phoneNumber,
         this.isActive,
         this.fullName,
         this.lastLoginTime,
@@ -27,11 +29,12 @@ class User {
     name = json['name'];
     surname = json['surname'];
     emailAddress = json['emailAddress'];
+    phoneNumber = json['phoneNumber'];
     isActive = json['isActive'];
     fullName = json['fullName'];
     lastLoginTime = json['lastLoginTime'];
     creationTime = json['creationTime'];
-    roleNames = json['roleNames'].cast<String>();
+    // roleNames = json['roleNames'].cast<String>();
     id = json['id'];
   }
 
@@ -41,6 +44,7 @@ class User {
     data['name'] = this.name;
     data['surname'] = this.surname;
     data['emailAddress'] = this.emailAddress;
+    data['phoneNumber'] = this.phoneNumber;
     data['isActive'] = this.isActive;
     data['fullName'] = this.fullName;
     data['lastLoginTime'] = this.lastLoginTime;

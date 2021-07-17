@@ -1,6 +1,8 @@
 import 'package:dio/src/response.dart';
 import 'package:flutter/material.dart';
 import 'package:hizli_su/core/main_service.dart';
+import 'package:hizli_su/models/auth/user_detail_result.dart';
+import 'package:hizli_su/models/auth/user_model.dart';
 import 'package:hizli_su/models/auth/user_token.dart';
 
 class AuthService {
@@ -16,4 +18,14 @@ class AuthService {
     return UserToken.fromJson(resp.data);
   }
 
+  Future<UserDetailResult> getAuthUserInfo() async {
+    Response resp =
+    await MainService().get('/services/app/Account/GetAuthUserInfo');
+    return UserDetailResult.fromJson(resp.data);
+  }
+
+  Future<UserDetailResult> updateUser(User user) async {
+    Response resp = await MainService().put('/services/app/Account/UpdateUser',data: user.toJson());
+    return UserDetailResult.fromJson(resp.data);
+  }
 }

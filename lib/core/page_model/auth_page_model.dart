@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hizli_su/core/main_service.dart';
 import 'package:hizli_su/core/services/auth_service.dart';
+import 'package:hizli_su/models/auth/user_model.dart';
 import 'package:hizli_su/models/auth/user_token.dart';
 import 'package:hizli_su/pages/home_page.dart';
 
@@ -10,16 +11,14 @@ import '../routes.dart';
 
 
 class AuthPageModel extends GetxController {
-  // String email, password;
   final box = GetStorage();
-
-  // Rxn<User> _user = Rxn<User>();
-
- // String get user => _user.value?.email;
+  Rx<User> user = User().obs;
+  RxBool loading = false.obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
+    getAuthUserInfo();
     super.onInit();
   }
 
@@ -52,7 +51,18 @@ class AuthPageModel extends GetxController {
 
         Get.offAllNamed(Routes.mainPage);
       }
-
+  }
+  Future<void> getAuthUserInfo() async {
+    loading.value = true;
+    var userResult = await AuthService().getAuthUserInfo();
+    user.value = userResult.result;
+    loading.value = false;
+  }
+  Future<void> updateUser(User user) async {
+    loading.value = true;
+    await AuthService().updateUser(user);
+    // user.value = userResult.result;
+    loading.value = false;
   }
 
 }

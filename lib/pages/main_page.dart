@@ -8,7 +8,7 @@ import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/pages/cart_page.dart';
 import 'package:hizli_su/pages/home_page.dart';
 import 'package:hizli_su/pages/order/order_page.dart';
-import 'package:hizli_su/pages/setting_page.dart';
+import 'package:hizli_su/pages/setting/setting_page.dart';
 
 class MainPage extends StatelessWidget {
   final MainPageModel controller = Get.find<MainPageModel>();
