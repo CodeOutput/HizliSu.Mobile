@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
           onRefresh: _onRefresh,
           child: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+              padding: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 100),
               child: Column(
                 children: [
                   //_searchTextFormField(),
@@ -161,14 +161,16 @@ class HomePage extends StatelessWidget {
 
   Widget _listViewProducts(BuildContext context) {
     if (controller.loading.value) {
-      return CircularProgressIndicator(
-          strokeWidth: 2,
-          valueColor:
-          new AlwaysStoppedAnimation<
-              Color>(
-              Colors.white),
-          backgroundColor:
-          primaryColor);
+      return Center(
+        child: CircularProgressIndicator(
+            strokeWidth: 2,
+            valueColor:
+            new AlwaysStoppedAnimation<
+                Color>(
+                Colors.white),
+            backgroundColor:
+            primaryColor),
+      );
     }
     var items = _buildItems(controller.productList.value, context);
     var _staggeredTiles = items[0];
@@ -184,7 +186,7 @@ class HomePage extends StatelessWidget {
               .height,
           child: Container(
             child: StaggeredGridView.countBuilder(
-              padding: EdgeInsets.only(left: 5, right: 5, top: 5),
+              padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 150),
               crossAxisCount: 2,
               controller: this.scController,
               staggeredTileBuilder: (index) {
