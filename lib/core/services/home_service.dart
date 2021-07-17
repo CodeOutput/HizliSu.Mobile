@@ -5,7 +5,9 @@ import 'package:hizli_su/models/cart/cart_item_model.dart';
 import 'package:hizli_su/models/cart/cart_model.dart';
 import 'package:hizli_su/models/cart/cart_result.dart';
 import 'package:hizli_su/models/catalog/category_result.dart';
+import 'package:hizli_su/models/catalog/product_detail_result.dart';
 import 'package:hizli_su/models/catalog/product_result_model.dart';
+import 'package:hizli_su/pages/product/product_detail_page.dart';
 
 class HomeService {
 
@@ -16,6 +18,10 @@ class HomeService {
   Future<ProductResult> getProductListAsync() async {
     Response resp = await MainService().get('/services/app/Product/GetProductList');
     return ProductResult.fromJson(resp.data);
+  }
+  Future<ProductDetailResult> getProductDetailAsync(int productId) async {
+    Response resp = await MainService().get('/services/app/Product/GetProductDetail?id=$productId');
+    return ProductDetailResult.fromJson(resp.data);
   }
 
   Future<Cart> addToCart(CartItemModel item) async {

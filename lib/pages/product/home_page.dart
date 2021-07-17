@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
   }
 
   Future<void> _onRefresh() async {
-    controller.getCategory();
+    //controller.getCategory();
     controller.getProducts();
     controller.getCartAllList();
   }
@@ -151,7 +151,6 @@ class HomePage extends StatelessWidget {
 
     products.forEach((item) {
       _staggeredTiles.add(new StaggeredTile.count(1, 1.5));
-      //item.cartLoading = true;
       _widgets.add(ProductWidget(
         product: item,
       ));
@@ -194,8 +193,6 @@ class HomePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return _tiles[index];
               },
-              //staggeredTiles: _staggeredTiles,
-              //children: _tiles,
               itemCount: controller.productList.value.length,
               mainAxisSpacing: 20.0,
               crossAxisSpacing: 20.0,

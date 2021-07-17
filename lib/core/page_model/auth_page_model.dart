@@ -6,7 +6,7 @@ import 'package:hizli_su/core/services/auth_service.dart';
 import 'package:hizli_su/models/auth/register_result.dart';
 import 'package:hizli_su/models/auth/user_model.dart';
 import 'package:hizli_su/models/auth/user_token.dart';
-import 'package:hizli_su/pages/home_page.dart';
+import 'package:hizli_su/pages/product/home_page.dart';
 
 import '../routes.dart';
 

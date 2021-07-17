@@ -6,7 +6,7 @@ import 'package:hizli_su/core/page_model/home_page_model.dart';
 import 'package:hizli_su/core/page_model/main_page_model.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/pages/cart_page.dart';
-import 'package:hizli_su/pages/home_page.dart';
+import 'package:hizli_su/pages/product/home_page.dart';
 import 'package:hizli_su/pages/order/order_page.dart';
 import 'package:hizli_su/pages/setting/setting_page.dart';
 

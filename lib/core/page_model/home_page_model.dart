@@ -6,7 +6,6 @@ import 'package:hizli_su/models/cart/cart_total_model.dart';
 import 'package:hizli_su/models/catalog/category_model.dart';
 import 'package:hizli_su/models/catalog/product_model.dart';
 
-
 class HomePageModel extends GetxController {
   RxBool loadingCategory = false.obs;
   RxBool loading = false.obs;
@@ -14,6 +13,9 @@ class HomePageModel extends GetxController {
   RxList<Category> categoryList = new List<Category>.empty(growable: true).obs;
   RxList<Product> productList = new List<Product>.empty(growable: true).obs;
   RxList<Cart> cartItems = new List<Cart>.empty(growable: true).obs;
+
+  Rx<Product> product = new Product().obs;
+  // Product product = new Product();
 
   CartTotalModel cartTotalModel = new CartTotalModel();
 
@@ -52,7 +54,7 @@ class HomePageModel extends GetxController {
   }
 
   HomePageModel() {
-   // getCategory();
+    // getCategory();
     getProducts();
     getCartAllList();
   }
@@ -68,6 +70,13 @@ class HomePageModel extends GetxController {
     loading.value = true;
     var value = await HomeService().getProductListAsync();
     productList.value = value.result.items;
+    loading.value = false;
+  }
+
+  getProductDetail(int productId) async {
+    loading.value = true;
+    var value = await HomeService().getProductDetailAsync(productId);
+    product.value = value.result;
     loading.value = false;
   }
 

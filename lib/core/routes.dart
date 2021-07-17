@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:hizli_su/core/binding.dart';
 import 'package:hizli_su/pages/auth/login_page.dart';
-import 'package:hizli_su/pages/home_page.dart';
+import 'package:hizli_su/pages/product/home_page.dart';
 import 'package:hizli_su/pages/main_page.dart';
 import 'package:hizli_su/pages/splash_page.dart';
 

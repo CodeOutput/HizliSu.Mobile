@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hizli_su/core/page_model/home_page_model.dart';
 import 'package:hizli_su/models/cart/cart_item_model.dart';
 import 'package:hizli_su/models/catalog/product_model.dart';
+import 'package:hizli_su/pages/product/product_detail_page.dart';
 import 'package:hizli_su/pages/widgets/custom_text.dart';
 import 'package:hizli_su/pages/widgets/price_text_widget.dart';
 import 'package:intl/intl.dart';
@@ -35,10 +36,7 @@ class ProductWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        // Navigator.of(context, rootNavigator: true)
-        //     .push(CupertinoPageRoute(builder: (BuildContext context) {
-        //   return ProductDetailView(product: widget.product);
-        // }));
+        Get.to(() => ProductDetailPage(productId: product.id));
       },
       child: Obx(() => Container(
             decoration: BoxDecoration(

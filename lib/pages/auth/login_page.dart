@@ -18,111 +18,113 @@ class LoginPage extends  GetWidget<AuthPageModel>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(
-                    text: 'Hoş Geldiniz',
-                    fontSize: 30,
-                  ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText(
+                      text: 'Hoş Geldiniz',
+                      fontSize: 30,
+                    ),
 
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CustomText(
-                text: 'Oturum aç ve devam et...',
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                height: 120,
-              ),
-              CustomTextFormField(
-                text: 'E-Posta',
-                hint: 'e-posta adresinizi giriniz...',
-                onSaved: (value) {
-                  email = value;
-                },
-                validator: (value) {
-                  if (value.isEmpty || value == null) {
-                    return 'Lütfen e-posta adresinizi giriniz';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 40),
-              CustomTextFormField(
-                obscureText: true,
-                text: 'Şifre',
-                hint: '**********',
-                onSaved: (value) {
-                  password = value;
-                },
-                validator: (value) {
-                  if (value.isEmpty || value == null) {
-                    return 'Lütfen şifrenizi giriniz';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomText(
-                text: 'Şifremi unuttum!',
-                fontSize: 14,
-                alignment: Alignment.topRight,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomButton(
-                  text: 'Oturum Aç',
-                  onPressed: () {
-                    print('Oturum Aç clicked');
-                    _formKey.currentState.save();
-                    print('save clicked');
-                    if(_formKey.currentState.validate()) {
-                      print('validate clicked');
-                      controller.signIn(email, password);
-                      print('signIn clicked');
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CustomText(
+                  text: 'Oturum aç ve devam et...',
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  height: 120,
+                ),
+                CustomTextFormField(
+                  text: 'E-Posta',
+                  hint: 'e-posta adresinizi giriniz...',
+                  onSaved: (value) {
+                    email = value;
+                  },
+                  validator: (value) {
+                    if (value.isEmpty || value == null) {
+                      return 'Lütfen e-posta adresinizi giriniz';
                     }
-                    // Get.to(SecondScreen());
-                  }),
+                    return null;
+                  },
+                ),
+                SizedBox(height: 40),
+                CustomTextFormField(
+                  obscureText: true,
+                  text: 'Şifre',
+                  hint: '**********',
+                  onSaved: (value) {
+                    password = value;
+                  },
+                  validator: (value) {
+                    if (value.isEmpty || value == null) {
+                      return 'Lütfen şifrenizi giriniz';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                // CustomText(
+                //   text: 'Şifremi unuttum!',
+                //   fontSize: 14,
+                //   alignment: Alignment.topRight,
+                // ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomButton(
+                    text: 'Oturum Aç',
+                    onPressed: () {
+                      print('Oturum Aç clicked');
+                      _formKey.currentState.save();
+                      print('save clicked');
+                      if(_formKey.currentState.validate()) {
+                        print('validate clicked');
+                        controller.signIn(email, password);
+                        print('signIn clicked');
+                      }
+                      // Get.to(SecondScreen());
+                    }),
 
-              SizedBox(
-                height: 30,
-              ),
-              CustomText(
-                text: 'Henüz üye değil misin?',
-                color: Colors.black,
-                fontSize: 16,
-                alignment: Alignment.center,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.to(()=> RegisterPage());
-                },
-                child: CustomText(
-                  text: 'Üye ol',
-                  color: primaryColor,
-                  fontSize: 26,
+                SizedBox(
+                  height: 30,
+                ),
+                CustomText(
+                  text: 'Henüz üye değil misin?',
+                  color: Colors.black,
+                  fontSize: 16,
                   alignment: Alignment.center,
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(()=> RegisterPage());
+                  },
+                  child: CustomText(
+                    text: 'Üye ol',
+                    color: primaryColor,
+                    fontSize: 26,
+                    alignment: Alignment.center,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
