@@ -6,6 +6,7 @@ import 'package:hizli_su/core/routes.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/pages/address/address_page.dart';
 import 'package:hizli_su/pages/auth/login_page.dart';
+import 'package:hizli_su/pages/widgets/custom_button.dart';
 
 class SettingPage extends StatelessWidget {
   final box = GetStorage();
@@ -17,6 +18,7 @@ class SettingPage extends StatelessWidget {
         actions: appBarActions(),
       ),
       body: body(context),
+
     );
   }
 
@@ -38,6 +40,19 @@ class SettingPage extends StatelessWidget {
           Card(
             child: Column(
               children: [
+                ListTile(
+                  title: Text(
+                    "Profil",
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: primaryColor,
+                  ),
+                ),
+                Divider(
+                  height: 1,
+                ),
                 ListTile(
                   title: Text(
                     "Adreslerim",
@@ -67,19 +82,7 @@ class SettingPage extends StatelessWidget {
                 Divider(
                   height: 1,
                 ),
-                ListTile(
-                  title: Text(
-                    "Profil",
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    color: primaryColor,
-                  ),
-                ),
-                Divider(
-                  height: 1,
-                ),
+
                 ListTile(
                   onTap: () {
                     box.erase();
