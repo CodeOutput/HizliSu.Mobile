@@ -107,6 +107,18 @@ class ProductDetailPage extends StatelessWidget {
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 0.0, horizontal: 16.0),
                                   dense: true,
+                                  title: Text("Kategori"),
+                                  trailing:
+                                      Text("${_.product.value.category.name}"),
+                                ),
+                                Divider(
+                                  height: 1,
+                                  color: Colors.grey,
+                                ),
+                                ListTile(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 0.0, horizontal: 16.0),
+                                  dense: true,
                                   title: Text("Adet"),
                                   trailing:
                                       Text("x${_.product.value.unitQuantity}"),
@@ -136,7 +148,6 @@ class ProductDetailPage extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
@@ -145,7 +156,8 @@ class ProductDetailPage extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 5, right: 5),
                             child: homePageCtrl.inCart(_.product.value.id)
                                 ? Container(
-                                    margin: EdgeInsets.only(top: 12, bottom: 12),
+                                    margin:
+                                        EdgeInsets.only(top: 12, bottom: 12),
                                     decoration: BoxDecoration(
                                         color: primaryColor,
                                         borderRadius: BorderRadius.circular(5)),
@@ -176,7 +188,8 @@ class ProductDetailPage extends StatelessWidget {
                                                     cartQuantity.toString(),
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontWeight: FontWeight.w500,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                         fontSize: 19),
                                                     textAlign: TextAlign.center,
                                                   )
@@ -226,19 +239,23 @@ class ProductDetailPage extends StatelessWidget {
                                           ? Container()
                                           : InkWell(
                                               onTap: () {
-                                                print('Sepete ekle + tıklandı!');
+                                                print(
+                                                    'Sepete ekle + tıklandı!');
                                                 if (enabledCartLoading.value)
                                                   _updateCart(
                                                       increase: true,
-                                                      quantity: cartQuantity.value);
+                                                      quantity:
+                                                          cartQuantity.value);
                                               },
                                               child: Container(
                                                 width: 30,
                                                 height: 30,
                                                 decoration: BoxDecoration(
-                                                    color: const Color(0xFFC2E6E8),
+                                                    color:
+                                                        const Color(0xFFC2E6E8),
                                                     borderRadius:
-                                                        BorderRadius.circular(5)),
+                                                        BorderRadius.circular(
+                                                            5)),
                                                 child: enabledCartLoading.value
                                                     ? Icon(
                                                         Icons.add,
@@ -267,8 +284,9 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Card(
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -284,7 +302,9 @@ class ProductDetailPage extends StatelessWidget {
                                         ?.facilityAttributes[index]?.value ??
                                     'b'),
                               ),
-                              Divider(height: 1,),
+                              Divider(
+                                height: 1,
+                              ),
                             ],
                           );
                         },
