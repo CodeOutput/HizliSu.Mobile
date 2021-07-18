@@ -6,6 +6,7 @@ import 'package:hizli_su/core/page_model/main_page_model.dart';
 import 'package:hizli_su/helpers/const.dart';
 import 'package:hizli_su/pages/address/address_page.dart';
 import 'package:hizli_su/pages/auth/login_page.dart';
+import 'package:hizli_su/pages/setting/password_change_page.dart';
 import 'package:hizli_su/pages/setting/profile_page.dart';
 
 class SettingPage extends StatelessWidget {
@@ -60,7 +61,23 @@ class SettingPage extends StatelessWidget {
                     Divider(
                       height: 1,
                     ),
-                    ListTile(
+                ListTile(
+                  title: Text(
+                    "Şifre Değiştir",
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: primaryColor,
+                  ),
+                  onTap: () async {
+                    Get.to(() => PasswordChangePage());
+                  },
+                ),
+                Divider(
+                  height: 1,
+                ),
+                ListTile(
                       title: Text(
                         "Adreslerim",
                         style: TextStyle(

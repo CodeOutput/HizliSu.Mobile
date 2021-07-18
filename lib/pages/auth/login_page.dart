@@ -48,8 +48,8 @@ class LoginPage extends  GetWidget<AuthPageModel>{
                   height: 120,
                 ),
                 CustomTextFormField(
-                  text: 'E-Posta',
-                  hint: 'e-posta adresinizi giriniz...',
+                  text: 'E-Posta veya Kullanııc Adı',
+                  hint: 'e-posta veya kullanıcı adınız...',
                   onSaved: (value) {
                     email = value;
                   },

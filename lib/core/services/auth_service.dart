@@ -1,6 +1,7 @@
 import 'package:dio/src/response.dart';
 import 'package:flutter/material.dart';
 import 'package:hizli_su/core/main_service.dart';
+import 'package:hizli_su/models/auth/password_change_result.dart';
 import 'package:hizli_su/models/auth/register_result.dart';
 import 'package:hizli_su/models/auth/user_detail_result.dart';
 import 'package:hizli_su/models/auth/user_model.dart';
@@ -29,8 +30,19 @@ class AuthService {
     Response resp = await MainService().put('/services/app/Account/UpdateUser',data: user.toJson());
     return UserDetailResult.fromJson(resp.data);
   }
+
   Future<RegisterResult> saveUser(User user) async {
     Response resp = await MainService().post('/services/app/Account/Register',data: user.toJson());
     return RegisterResult.fromJson(resp.data);
   }
+
+  Future<PasswordChangeResult> changePassword(String password, String newPassword) async {
+    Map<String, dynamic> requestBody = {
+      "currentPassword": password,
+      "newPassword": newPassword
+    };
+    Response resp = await MainService().post('/services/app/Account/ChangePassword',data: requestBody);
+    return PasswordChangeResult.fromJson(resp.data);
+  }
+
 }

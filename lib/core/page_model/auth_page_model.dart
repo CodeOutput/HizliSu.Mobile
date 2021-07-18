@@ -75,4 +75,12 @@ class AuthPageModel extends GetxController {
     registerResult.value = value;
     loading.value = false;
   }
+
+
+  Future<bool> changePassword(String password, String newPassword) async {
+    loading.value = true;
+    var val =  await AuthService().changePassword(password,newPassword);
+    loading.value = false;
+    return val.result;
+  }
 }
