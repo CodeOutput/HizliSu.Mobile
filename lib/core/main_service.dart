@@ -8,20 +8,21 @@ class MainService {
   Dio dio;
   final box = GetStorage();
   MainService() {
-    var baseUrl = 'http://192.168.1.117:21021/api';
+   // var baseUrl = 'http://192.168.1.117:21021/api';
+    var baseUrl = 'http://213.238.181.210:9090/api';
     var headers = {
       'Authorization': 'Bearer ${box.read('accessToken')}',
     };
 
     dio = Dio(BaseOptions(baseUrl: baseUrl, headers: headers));
-    dio.interceptors.add(PrettyDioLogger(
-        requestHeader: false,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: false,
-        maxWidth: 90));
+    // dio.interceptors.add(PrettyDioLogger(
+    //     requestHeader: false,
+    //     requestBody: true,
+    //     responseBody: true,
+    //     responseHeader: false,
+    //     error: true,
+    //     compact: false,
+    //     maxWidth: 90));
 
     // otomatik durum yakalayıcı
     dio.interceptors.add(AppInterceptors());
