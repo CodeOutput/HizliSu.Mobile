@@ -2,6 +2,10 @@
 Flutter
 Getx
 Login page,register page...
+##BackEnd:https://github.com/turkiasoft/HizliSu-BackEnd 
+##Admin:https://github.com/turkiasoft/HizliSu.Admin 
+
+
 
 Hızlı Su
 Telegram: turkiasoft
