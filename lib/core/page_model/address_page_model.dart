@@ -17,8 +17,7 @@ class AddressPageModel extends GetxController {
   Rx<UserAddress> userAddress = new UserAddress().obs;
   RxList<City> cities = new List<City>.empty(growable: true).obs;
   RxList<District> districts = new List<District>.empty(growable: true).obs;
-  RxList<Neighborhood> neighborhoods = new List<Neighborhood>.empty(
-      growable: true).obs;
+  RxList<Neighborhood> neighborhoods = new List<Neighborhood>.empty(growable: true).obs;
 
   AddressPageModel() {
     getAuthUserAddressList();
